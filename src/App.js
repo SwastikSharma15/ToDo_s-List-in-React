@@ -2,7 +2,7 @@ import './App.css';
 import Header from './MyComponents/Header';
 import { Todo } from './MyComponents/Todo'; // ✅ Use Todo
 import { Footer } from './MyComponents/Footer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AddToDo } from './MyComponents/AddToDo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,23 +25,10 @@ function App() {
     setTodos([...todos, myTodo]);
   }
 
-  const [todos, setTodos] = useState([
-    {
-      sno: 1,
-      title: "Go to the market",
-      desc: "You need to go to the market to get this job done"
-    },
-    {
-      sno: 2,
-      title: "Go to the gym",
-      desc: "You need to go to the gym to get this job done"
-    },
-    {
-      sno: 3,
-      title: "Go to the school",
-      desc: "You need to go to the school to get this job done"
-    }
-  ]);
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <>
@@ -54,3 +41,4 @@ function App() {
 }
 
 export default App;
+console.log("Hello World");
